@@ -7,6 +7,7 @@
     "dev:next": "next dev",
     "dev:frourio": "frourio-next --watch",
     "build": "frourio-next && next build",
+    "hcm": "hcm 'src/**/*.module.css'",
     "generate": "run-p generate:*",
     "generate:frourio": "frourio-next && frourio-next-msw",
     "generate:prisma": "prisma generate",
