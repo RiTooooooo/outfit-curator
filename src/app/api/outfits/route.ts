@@ -1,7 +1,7 @@
-import { createRoute } from './frourio.server';
+import { createRoute } from "./frourio.server";
 
 export const { GET } = createRoute({
   get: async () => {
-    return { status: 200, body: { value: 'ok' } };
+    return { status: 200, body: { value: "ok" } };
   },
 });

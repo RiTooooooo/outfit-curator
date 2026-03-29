@@ -7,10 +7,16 @@
     "dev:next": "next dev",
     "dev:frourio": "frourio-next --watch",
     "build": "frourio-next && next build",
-    "start": "next start",
-    "lint": "next lint",
+    "lint": "run-p lint:*",
+    "lint:js": "eslint .",
+    "lint:prettier": "prettier --check \"./**/*.{ts,tsx,js}\" --ignore-path .gitignore",
+    "lint:style": "stylelint \"src/**/*.css\" --ignore-path .gitignore",
+    "lint:prisma": "prisma format",
     "fix:lint": "npm run fix:prettier && npm run lint:js -- --fix && npm run lint:style -- --fix && npm run lint:prisma && npm run fix:prettier",
-    "generate": "frourio-next"
+    "fix:prettier": "npm run lint:prettier -- --write",
+    "start": "npm run migrate:deploy && next start",
+    "test": "vitest run --coverage",
+    "typecheck": "npm run hcm && tsc --noEmit"
   },
   "dependencies": {
     "@prisma/client": "^7.6.0",
@@ -34,7 +40,9 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^3.8.1",
     "stylelint": "^17.6.0",
+    "stylelint-config-recess-order": "^7.7.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^5",
     "typescript-eslint": "^8.57.2"

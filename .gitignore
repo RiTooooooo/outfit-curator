@@ -23,6 +23,10 @@
 # misc
 .DS_Store
 *.pem
+tsconfig.tsbuildinfo
+*.css.d.ts
+*.css.d.ts.map
+/coverage
 
 # debug
 npm-debug.log*
@@ -39,5 +43,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# frourio
+**/$*.ts
+frourio.*.ts
+tests/setupMswHandlers.ts
 
 /src/generated/prisma
