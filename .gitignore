@@ -47,5 +47,6 @@ next-env.d.ts
 # frourio
 **/$*.ts
 frourio.*.ts
+tests/setupMswHandlers.ts
 
 /src/generated/prisma
