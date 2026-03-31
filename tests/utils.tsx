@@ -1,14 +1,14 @@
-import { render } from '@testing-library/react';
-import { InbucketAPIClient } from 'inbucket-js-client';
-import { SWRConfig } from 'swr';
+import { render } from "@testing-library/react";
+import { InbucketAPIClient } from "inbucket-js-client";
+import { SWRConfig } from "swr";
 
-export const TEST_BASE_URL = 'http://localhost:3000';
+export const TEST_BASE_URL = "http://localhost:3000";
 
-export const TEST_SIGN_IN_NAME_PREFIX = 'test-username-prefix';
+export const TEST_SIGN_IN_NAME_PREFIX = "test-username-prefix";
 
 export const inbucketClient = new InbucketAPIClient(process.env.INBUCKET_URL!);
 
-const TEST_ENV_NAMES = ['INBUCKET_URL', 'S3_ENDPOINT', 'S3_BUCKET'] as const;
+const TEST_ENV_NAMES = ["INBUCKET_URL", "S3_ENDPOINT", "S3_BUCKET"] as const;
 
 type TestEnvs = Record<(typeof TEST_ENV_NAMES)[number], string | undefined>;
 
@@ -29,9 +29,13 @@ export async function fetchMailBodyAndTrash(email: string): Promise<string> {
 }
 
 export async function fetchSignUpCode(email: string): Promise<string> {
-  return await fetchMailBodyAndTrash(email).then((message) => message.split(' ').at(-1)!);
+  return await fetchMailBodyAndTrash(email).then(
+    (message) => message.split(" ").at(-1)!,
+  );
 }
 
 export function renderWithSWR(ui: React.ReactNode): ReturnType<typeof render> {
-  return render(<SWRConfig value={{ provider: () => new Map() }}>{ui}</SWRConfig>);
+  return render(
+    <SWRConfig value={{ provider: () => new Map() }}>{ui}</SWRConfig>,
+  );
 }
