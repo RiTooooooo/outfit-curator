@@ -1,23 +1,19 @@
-import { http, type RequestHandler } from "msw";
-import * as route_14ma3l5 from "../src/app/api/outfits/route";
+import { http, type RequestHandler } from 'msw';
+import * as route_14ma3l5 from '../src/app/api/outfits/route';
 
 export const patchDuplicateCookie = (req: Request): Request => {
-  const cookie = req.headers.get("cookie");
+  const cookie = req.headers.get('cookie');
 
   if (cookie) {
-    const unique = [
-      ...new Set(cookie.split(/,\s*/).flatMap((s) => s.split("; "))),
-    ];
-    req.headers.set("cookie", unique.join("; "));
+    const unique = [...new Set(cookie.split(/,\s*/).flatMap((s) => s.split('; ')))];
+    req.headers.set('cookie', unique.join('; '));
   }
 
   return req;
 };
 
-export function setupMswHandlers(option?: {
-  baseURL: string;
-}): RequestHandler[] {
-  const baseURL = option?.baseURL.replace(/\/$/, "") ?? "";
+export function setupMswHandlers(option?: { baseURL: string }): RequestHandler[] {
+  const baseURL = option?.baseURL.replace(/\/$/, '') ?? '';
 
   return [
     http.get(`${baseURL}/api/outfits`, ({ request }) => {
@@ -39,16 +35,13 @@ export function patchFilePrototype(): void {
   File.prototype.bytes ??= function (): Promise<Uint8Array<ArrayBuffer>> {
     return new Promise<Uint8Array<ArrayBuffer>>((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = (): void =>
-        resolve(new Uint8Array(reader.result as ArrayBuffer));
+      reader.onload = (): void => resolve(new Uint8Array(reader.result as ArrayBuffer));
       reader.onerror = reject;
       reader.readAsArrayBuffer(this);
     });
   };
 
-  File.prototype.stream ??= function (): ReadableStream<
-    Uint8Array<ArrayBuffer>
-  > {
+  File.prototype.stream ??= function (): ReadableStream<Uint8Array<ArrayBuffer>> {
     return new ReadableStream({
       start: (controller): void => {
         const reader = new FileReader();

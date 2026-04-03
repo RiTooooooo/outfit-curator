@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { CreateBucketCommand, S3Client } from "@aws-sdk/client-s3";
 import { PrismaClient } from "@prisma/client";
 import "@testing-library/jest-dom/vitest";
@@ -18,7 +19,7 @@ function createPrismaClient(): PrismaClient {
   });
 }
 
-vi.mock("server/service/prismaClient", async () => {
+vi.mock("server/lib/prismaClient", async () => {
   process.env.DATABASE_URL = process.env.DATABASE_URL!.replace(
     /[^/]+$/,
     `test-${ulid()}`,

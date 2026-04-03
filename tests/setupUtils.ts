@@ -7,9 +7,16 @@ import {
 import { testEnvs } from "./utils";
 
 export async function resetS3Bucket(s3Client: S3Client): Promise<void> {
-  const objects = await s3Client.send(
-    new ListObjectsV2Command({ Bucket: testEnvs().S3_BUCKET }),
-  );
+  let objects;
+
+  try {
+    objects = await s3Client.send(
+      new ListObjectsV2Command({ Bucket: testEnvs().S3_BUCKET }),
+    );
+  } catch {
+    return;
+  }
+
   const keys = objects.Contents?.map(({ Key }) => ({ Key })) ?? [];
 
   if (keys.length === 0) return;
@@ -23,7 +30,11 @@ export async function resetS3Bucket(s3Client: S3Client): Promise<void> {
 }
 
 export async function deleteS3Bucket(s3Client: S3Client): Promise<void> {
-  await s3Client.send(
-    new DeleteBucketCommand({ Bucket: testEnvs().S3_BUCKET }),
-  );
+  try {
+    await s3Client.send(
+      new DeleteBucketCommand({ Bucket: testEnvs().S3_BUCKET }),
+    );
+  } catch {
+    return;
+  }
 }

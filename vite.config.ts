@@ -12,10 +12,13 @@ const testBase: InlineConfig = {
 const coverageBase = {
   include: ["src/**/*.{ts,tsx}"],
   exclude: [
+    "server/lib/prismaClient.ts",
     "src/app/layout.tsx",
+    "src/utils/apiClient.ts",
     "src/**/*.module.css.d.ts",
+    "src/utils/condition.ts",
+    "src/utils/$path.ts",
     "src/**/frourio.{client,server}.ts",
-    "src/generated/**",
   ],
 };
 
