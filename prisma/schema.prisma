@@ -11,3 +11,58 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Question {
+  id      String   @id @default(cuid())
+  order   Int      @unique
+  text    String
+  choices Choice[]
+}
+
+model Choice {
+  id         String   @id @default(cuid())
+  questionId String
+  text       String
+  tags       String[]
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+model StyleType {
+  id               String            @id @default(cuid())
+  name             String
+  slug             String            @unique
+  description      String
+  catchphrase      String
+  outfits          Outfit[]
+  styleTypeTags    StyleTypeTag[]
+  diagnosisResults DiagnosisResult[]
+}
+
+model StyleTypeTag {
+  id          String    @id @default(cuid())
+  styleTypeId String
+  tag         String
+  weight      Int       @default(1)
+  styleType   StyleType @relation(fields: [styleTypeId], references: [id])
+
+  @@unique([styleTypeId, tag])
+}
+
+model Outfit {
+  id          String    @id @default(cuid())
+  styleTypeId String
+  title       String
+  description String?
+  s3Key       String
+  order       Int
+  styleType   StyleType @relation(fields: [styleTypeId], references: [id])
+}
+
+model DiagnosisResult {
+  id          String    @id @default(cuid())
+  sessionId   String
+  styleTypeId String
+  answers     Json
+  createdAt   DateTime  @default(now())
+  styleType   StyleType @relation(fields: [styleTypeId], references: [id])
+}
