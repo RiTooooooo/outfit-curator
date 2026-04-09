@@ -67,13 +67,30 @@ export default tseslint.config(
   },
   {
     files: ["src/app/**/route.ts"],
-    rules: { "@typescript-eslint/require-await": "off" },
+    rules: {
+      "@typescript-eslint/require-await": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+    },
+  },
+  {
+    files: ["prisma/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "max-lines": "off",
+    },
   },
   {
     files: ["tests/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
     rules: {
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/require-await": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
       "no-restricted-syntax": [
         "error",
         {

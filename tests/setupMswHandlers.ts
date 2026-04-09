@@ -1,5 +1,6 @@
 import { http, type RequestHandler } from 'msw';
 import * as route_14ma3l5 from '../src/app/api/outfits/route';
+import * as route_1tv9jko from '../src/app/api/questions/route';
 
 export const patchDuplicateCookie = (req: Request): Request => {
   const cookie = req.headers.get('cookie');
@@ -18,6 +19,9 @@ export function setupMswHandlers(option?: { baseURL: string }): RequestHandler[]
   return [
     http.get(`${baseURL}/api/outfits`, ({ request }) => {
       return route_14ma3l5.GET(patchDuplicateCookie(request));
+    }),
+    http.get(`${baseURL}/api/questions`, ({ request }) => {
+      return route_1tv9jko.GET(patchDuplicateCookie(request));
     }),
   ];
 }
