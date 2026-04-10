@@ -32,19 +32,29 @@
 - [x] `prisma/schema.prisma` にモデル定義（Question, Choice, StyleType, StyleTypeTag, Outfit, DiagnosisResult）
 - [x] マイグレーション実行済み（`prisma/migrations/20260405060611_add_diagnosis_models/`）
 - [x] `server/lib/s3Client.ts` 作成済み（`putObject`, `getPresignedUrl`）
+- [x] `server/lib/transaction.ts` 作成済み（P2028/P2034 エラー時に最大3回再帰リトライ）
+- [x] `package.json` に `prisma.seed` 設定と `tsx ^4.19.4` を追加
+- [x] `prisma/seed.ts` 作成済み（StyleType + tags, Question + Choice, Outfit/MinIO アップロード）
+  - データ定義は `prisma/seeds/styleTypesData.ts` と `prisma/seeds/questionsData.ts` に分離
+- [x] `GET /api/questions` を Frourio パターンで実装（`frourio.ts` + `route.ts` + `route.test.ts`）
+- [x] git commit: `feat: add transaction helper, seed, and GET /api/questions` [main d7f7b4d]
+
+### 既知のESLint設定（要注意）
+
+- `eslint.config.ts` にて以下のファイルパターンで `no-unsafe-*` ルールを緩和済み:
+  - `prisma/**/*.ts` — Prismaの動的生成型をESLintが解決できないため
+  - `src/app/**/route.ts` — 同上、`require-await: off` も追加
+  - `**/*.test.{ts,tsx}` — テストファイル
+- VS Code エディタ上のESLintエラーは `npx tsc` / `npx eslint` で実害がないか確認してから判断すること
 
 ### 次のタスク（この順で進める）
 
-1. `server/lib/transaction.ts` を作成する（MyTodo の同ファイルを参考に、Prisma トランザクションのリトライヘルパー）
-2. `package.json` に `"prisma": { "seed": "npx tsx prisma/seed.ts" }` を追加、devDependencies に `"tsx": "^4.19.4"` を追加
-3. `prisma/seed.ts` を作成する（質問・スタイルタイプ・画像のSeed）
-4. `GET /api/questions` を Frourio パターンで実装（`frourio.ts` + `route.ts` + テスト）
-5. `server/domain/diagnosis/diagnosisLogic.ts` を作成（タグ集計・スタイルタイプ決定の純粋関数）
-6. `POST /api/diagnoses` を Frourio パターンで実装（`frourio.ts` + `route.ts` + テスト）
-7. Phase 1: デザインシステム（globals.css のCSS変数、layout.tsx にGoogle Fonts追加）
-8. Phase 4: トップページ刷新（page.tsx + page.module.css）
-9. Phase 5: 診断ページ（src/app/diagnosis/page.tsx）
-10. Phase 6: 結果ページ（src/app/diagnosis/result/page.tsx）
+1. `server/domain/diagnosis/diagnosisLogic.ts` を作成（タグ集計・スタイルタイプ決定の純粋関数）
+2. `POST /api/diagnoses` を Frourio パターンで実装（`frourio.ts` + `route.ts` + テスト）
+3. Phase 1: デザインシステム（globals.css のCSS変数、layout.tsx にGoogle Fonts追加）
+4. Phase 4: トップページ刷新（page.tsx + page.module.css）
+5. Phase 5: 診断ページ（src/app/diagnosis/page.tsx）
+6. Phase 6: 結果ページ（src/app/diagnosis/result/page.tsx）
 
 ## データモデル概要
 
