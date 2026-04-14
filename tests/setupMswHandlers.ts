@@ -1,4 +1,5 @@
 import { http, type RequestHandler } from 'msw';
+import * as route_1sdc078 from '../src/app/api/diagnoses/route';
 import * as route_14ma3l5 from '../src/app/api/outfits/route';
 import * as route_1tv9jko from '../src/app/api/questions/route';
 
@@ -17,6 +18,9 @@ export function setupMswHandlers(option?: { baseURL: string }): RequestHandler[]
   const baseURL = option?.baseURL.replace(/\/$/, '') ?? '';
 
   return [
+    http.post(`${baseURL}/api/diagnoses`, ({ request }) => {
+      return route_1sdc078.POST(patchDuplicateCookie(request));
+    }),
     http.get(`${baseURL}/api/outfits`, ({ request }) => {
       return route_14ma3l5.GET(patchDuplicateCookie(request));
     }),

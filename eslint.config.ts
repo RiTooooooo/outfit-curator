@@ -86,6 +86,7 @@ export default tseslint.config(
   {
     files: ["tests/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
     rules: {
+      "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/no-unsafe-call": "off",
