@@ -43,6 +43,10 @@
 - [x] `POST /api/diagnoses` を Frourio パターンで実装（`frourio.ts` + `route.ts` + `server/service/diagnosisService.ts` + テスト）
 - [x] git commit: `feat: add POST /api/diagnoses with service layer and tests` [main e6bc794]
 - [x] Phase 1: デザインシステム（`src/app/globals.css` CSS変数、`src/app/layout.tsx` に Inter フォント追加、メタデータ日本語化）
+- [x] Phase 4: トップページ刷新（`src/app/page.tsx` + `src/app/page.module.css`）
+- [x] Phase 5: 診断ページ（`src/app/diagnosis/page.tsx`）— SWR + ステップ進行 + submit
+- [x] Phase 6: 結果ページ（`src/app/diagnosis/result/page.tsx`）— sessionStorage からスタイルタイプ表示
+- [x] git commit: `feat: implement Phase 4-6 (top page, diagnosis page, result page)` [main c2851a3]
 
 ### 既知のESLint設定（要注意）
 
@@ -65,9 +69,8 @@
 
 ### 次のタスク（この順で進める）
 
-1. Phase 4: トップページ刷新（`src/app/page.tsx` + `src/app/page.module.css`）
-2. Phase 5: 診断ページ（`src/app/diagnosis/page.tsx`）
-3. Phase 6: 結果ページ（`src/app/diagnosis/result/page.tsx`）
+1. Phase 7: アウトフィット表示（`GET /api/outfits?styleTypeSlug=xxx` 実装 + 結果ページに画像グリッド）
+2. Phase 8: Seed画像投入（`prisma/seeds/images/{slug}/` に配置 → MinIO アップロード確認）
 
 ## データモデル概要
 
