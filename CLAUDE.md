@@ -38,23 +38,36 @@
   - データ定義は `prisma/seeds/styleTypesData.ts` と `prisma/seeds/questionsData.ts` に分離
 - [x] `GET /api/questions` を Frourio パターンで実装（`frourio.ts` + `route.ts` + `route.test.ts`）
 - [x] git commit: `feat: add transaction helper, seed, and GET /api/questions` [main d7f7b4d]
+- [x] `server/domain/diagnosis/diagnosisLogic.ts` 作成済み（純粋関数、テスト4件合格）
+- [x] git commit: `feat: add diagnosisLogic domain function and tests` [main 2c80dae]
+- [x] `POST /api/diagnoses` を Frourio パターンで実装（`frourio.ts` + `route.ts` + `server/service/diagnosisService.ts` + テスト）
+- [x] git commit: `feat: add POST /api/diagnoses with service layer and tests` [main e6bc794]
+- [x] Phase 1: デザインシステム（`src/app/globals.css` CSS変数、`src/app/layout.tsx` に Inter フォント追加、メタデータ日本語化）
 
 ### 既知のESLint設定（要注意）
 
 - `eslint.config.ts` にて以下のファイルパターンで `no-unsafe-*` ルールを緩和済み:
   - `prisma/**/*.ts` — Prismaの動的生成型をESLintが解決できないため
   - `src/app/**/route.ts` — 同上、`require-await: off` も追加
-  - `**/*.test.{ts,tsx}` — テストファイル
+  - `**/*.test.{ts,tsx}` — `explicit-function-return-type: off` も追加済み
 - VS Code エディタ上のESLintエラーは `npx tsc` / `npx eslint` で実害がないか確認してから判断すること
+
+### デザインシステム（globals.css）で定義した主なCSS変数
+
+```css
+--color-blue: #0071e3;          /* Appleシグネチャーブルー */
+--color-bg-secondary: #f5f5f7;  /* ライトグレー背景 */
+--color-text-primary: #1d1d1f;  /* ほぼブラック */
+--color-text-secondary: #6e6e73;/* サブテキスト */
+--max-width: 980px;
+--font-sans: var(--font-inter), -apple-system, ...;
+```
 
 ### 次のタスク（この順で進める）
 
-1. `server/domain/diagnosis/diagnosisLogic.ts` を作成（タグ集計・スタイルタイプ決定の純粋関数）
-2. `POST /api/diagnoses` を Frourio パターンで実装（`frourio.ts` + `route.ts` + テスト）
-3. Phase 1: デザインシステム（globals.css のCSS変数、layout.tsx にGoogle Fonts追加）
-4. Phase 4: トップページ刷新（page.tsx + page.module.css）
-5. Phase 5: 診断ページ（src/app/diagnosis/page.tsx）
-6. Phase 6: 結果ページ（src/app/diagnosis/result/page.tsx）
+1. Phase 4: トップページ刷新（`src/app/page.tsx` + `src/app/page.module.css`）
+2. Phase 5: 診断ページ（`src/app/diagnosis/page.tsx`）
+3. Phase 6: 結果ページ（`src/app/diagnosis/result/page.tsx`）
 
 ## データモデル概要
 
