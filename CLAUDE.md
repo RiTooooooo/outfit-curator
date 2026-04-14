@@ -55,10 +55,10 @@
 ### デザインシステム（globals.css）で定義した主なCSS変数
 
 ```css
---color-blue: #0071e3;          /* Appleシグネチャーブルー */
---color-bg-secondary: #f5f5f7;  /* ライトグレー背景 */
---color-text-primary: #1d1d1f;  /* ほぼブラック */
---color-text-secondary: #6e6e73;/* サブテキスト */
+--color-blue: #0071e3; /* Appleシグネチャーブルー */
+--color-bg-secondary: #f5f5f7; /* ライトグレー背景 */
+--color-text-primary: #1d1d1f; /* ほぼブラック */
+--color-text-secondary: #6e6e73; /* サブテキスト */
 --max-width: 980px;
 --font-sans: var(--font-inter), -apple-system, ...;
 ```
