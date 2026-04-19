@@ -46,6 +46,8 @@
 - [x] Phase 4: トップページ刷新（`src/app/page.tsx` + `src/app/page.module.css`）
 - [x] Phase 5: 診断ページ（`src/app/diagnosis/page.tsx`）— SWR + ステップ進行 + submit
 - [x] Phase 6: 結果ページ（`src/app/diagnosis/result/page.tsx`）— sessionStorage からスタイルタイプ表示
+- [x] Phase 7: アウトフィット表示（`GET /api/outfits?styleTypeSlug=xxx` 実装 + 結果ページに画像グリッド）
+- [x] git commit: `feat: implement GET /api/outfits and connect result page to outfit images` [main c2ed3b3]
 - [x] git commit: `feat: implement Phase 4-6 (top page, diagnosis page, result page)` [main c2851a3]
 
 ### 既知のESLint設定（要注意）
@@ -69,8 +71,7 @@
 
 ### 次のタスク（この順で進める）
 
-1. Phase 7: アウトフィット表示（`GET /api/outfits?styleTypeSlug=xxx` 実装 + 結果ページに画像グリッド）
-2. Phase 8: Seed画像投入（`prisma/seeds/images/{slug}/` に配置 → MinIO アップロード確認）
+1. Phase 8: Seed画像投入（`prisma/seeds/images/{slug}/` に画像を置いて `npx prisma db seed` 再実行）
 
 ## データモデル概要
 
