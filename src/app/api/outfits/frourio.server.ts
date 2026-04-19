@@ -11,6 +11,7 @@ type SpecType = typeof frourioSpec;
 type Controller = {
   get: (
     req: {
+      query: z.infer<SpecType['get']['query']>;
     },
   ) => Promise<
     | {
@@ -29,7 +30,14 @@ type ResHandler = {
 export const createRoute = (controller: Controller): ResHandler => {
   return {
     GET: async (req) => {
-      const res = await controller.get({  });
+      const url = new URL(req.url);
+      const query = frourioSpec.get.query.safeParse({
+        'styleTypeSlug': url.searchParams.get('styleTypeSlug') ?? undefined,
+      });
+
+      if (query.error) return createReqErr(query.error);
+
+      const res = await controller.get({ query: query.data });
 
       switch (res.status) {
         case 200: {

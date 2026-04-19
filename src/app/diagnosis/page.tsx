@@ -139,6 +139,10 @@ export default function DiagnosisPage(): React.ReactNode {
     );
   if (isLoading || questions === undefined)
     return <LoadingView message="読み込み中…" />;
+  if (questions.length === 0)
+    return (
+      <ErrorView message="質問データがありません。先に db seed を実行してください。" />
+    );
 
   return <QuizCard questions={questions} />;
 }

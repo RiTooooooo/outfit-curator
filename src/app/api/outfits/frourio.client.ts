@@ -5,32 +5,40 @@ import { frourioSpec as frourioSpec_14ma3l5 } from './frourio'
 
 export const fc = (option?: FrourioClientOption) => ({
   $url: $url_14ma3l5(option),
-  $build(req?: { init?: RequestInit }): [
-    key: { lowLevel: true; baseURL: FrourioClientOption['baseURL']; dir: string },
+  $build(req: Parameters<ReturnType<typeof methods_14ma3l5>['$get']>[0] | null): [
+    key: { lowLevel: true; baseURL: FrourioClientOption['baseURL']; dir: string } & Omit<Parameters<ReturnType<typeof methods_14ma3l5>['$get']>[0], 'init'> | null,
     fetcher: () => Promise<NonNullable<Awaited<ReturnType<ReturnType<typeof methods_14ma3l5>['$get']>>>>,
   ] {
-    return [{ lowLevel: true, baseURL: option?.baseURL, dir: '/api/outfits' }, () => methods_14ma3l5(option).$get(req)];
+    if (req === null) return [null, () => Promise.reject(new Error('Fetcher is disabled.'))];
+
+    const { init, ...rest } = req;
+
+    return [{ lowLevel: true, baseURL: option?.baseURL, dir: '/api/outfits', ...rest }, () => methods_14ma3l5(option).$get(req)];
   },
   ...methods_14ma3l5(option),
 });
 
 export const $fc = (option?: FrourioClientOption) => ({
   $url: {
-    get(): string {
-      const result = $url_14ma3l5(option).get();
+    get(req: Parameters<ReturnType<typeof $url_14ma3l5>['get']>[0]): string {
+      const result = $url_14ma3l5(option).get(req);
 
       if (!result.isValid) throw result.reason;
 
       return result.data;
     },
   },
-  $build(req?: { init?: RequestInit }): [
-    key: { lowLevel: false; baseURL: FrourioClientOption['baseURL']; dir: string },
+  $build(req: Parameters<ReturnType<typeof methods_14ma3l5>['$get']>[0] | null): [
+    key: { lowLevel: false; baseURL: FrourioClientOption['baseURL']; dir: string } & Omit<Parameters<ReturnType<typeof methods_14ma3l5>['$get']>[0], 'init'> | null,
     fetcher: () => Promise<z.infer<typeof frourioSpec_14ma3l5.get.res[200]['body']>>,
   ] {
-    return [{ lowLevel: false, baseURL: option?.baseURL, dir: '/api/outfits' }, () => $fc(option).$get(req)];
+    if (req === null) return [null, () => Promise.reject(new Error('Fetcher is disabled.'))];
+
+    const { init, ...rest } = req;
+
+    return [{ lowLevel: false, baseURL: option?.baseURL, dir: '/api/outfits', ...rest }, () => $fc(option).$get(req)];
   },
-  async $get(req?: Parameters<ReturnType<typeof methods_14ma3l5>['$get']>[0]): Promise<z.infer<typeof frourioSpec_14ma3l5.get.res[200]['body']>> {
+  async $get(req: Parameters<ReturnType<typeof methods_14ma3l5>['$get']>[0]): Promise<z.infer<typeof frourioSpec_14ma3l5.get.res[200]['body']>> {
     const result = await methods_14ma3l5(option).$get(req);
 
     if (!result.isValid) throw result.isValid === false ? result.reason : result.error;
@@ -44,20 +52,36 @@ export const fc_14ma3l5 = fc;
 export const $fc_14ma3l5 = $fc;
 
 const $url_14ma3l5 = (option?: FrourioClientOption) => ({
-  get(): { isValid: true; data: string; reason?: undefined } | { isValid: false, data?: undefined; reason: z.ZodError } {
-    return { isValid: true, data: `${option?.baseURL?.replace(/\/$/, '') ?? ''}/api/outfits` };
+  get(req: { query: z.infer<typeof frourioSpec_14ma3l5.get.query> }): { isValid: true; data: string; reason?: undefined } | { isValid: false, data?: undefined; reason: z.ZodError } {
+    const parsedQuery = frourioSpec_14ma3l5.get.query.safeParse(req.query);
+
+    if (!parsedQuery.success) return { isValid: false, reason: parsedQuery.error };
+
+    const searchParams = new URLSearchParams();
+
+    Object.entries(parsedQuery.data).forEach(([key, value]) => {
+      if (value === undefined) return;
+
+      if (Array.isArray(value)) {
+        value.forEach(item => searchParams.append(key, item.toString()));
+      } else {
+        searchParams.append(key, value.toString());
+      }
+    });
+
+    return { isValid: true, data: `${option?.baseURL?.replace(/\/$/, '') ?? ''}/api/outfits?${searchParams.toString()}` };
   },
 });
 
 const methods_14ma3l5 = (option?: FrourioClientOption) => ({
-  async $get(req?: { init?: RequestInit }): Promise<
+  async $get(req: { query: z.infer<typeof frourioSpec_14ma3l5.get.query>, init?: RequestInit }): Promise<
     | { ok: true; isValid: true; data: { status: 200; headers?: undefined; body: z.infer<typeof frourioSpec_14ma3l5.get.res[200]['body']> }; failure?: undefined; raw: Response; reason?: undefined; error?: undefined }
     | { ok: boolean; isValid: false; data?: undefined; failure?: undefined; raw: Response; reason: z.ZodError; error?: undefined }
     | { ok: boolean; isValid?: undefined; data?: undefined; failure?: undefined; raw: Response; reason?: undefined; error: unknown }
     | { ok?: undefined; isValid: false; data?: undefined; failure?: undefined; raw?: undefined; reason: z.ZodError; error?: undefined }
     | { ok?: undefined; isValid?: undefined; data?: undefined; failure?: undefined; raw?: undefined; reason?: undefined; error: unknown }
   > {
-    const url = $url_14ma3l5(option).get();
+    const url = $url_14ma3l5(option).get(req);
 
     if (url.reason) return url;
 
@@ -67,8 +91,8 @@ const methods_14ma3l5 = (option?: FrourioClientOption) => ({
       {
         method: 'GET',
         ...option?.init,
-        ...req?.init,
-        headers: { ...option?.init?.headers, ...req?.init?.headers },
+        ...req.init,
+        headers: { ...option?.init?.headers, ...req.init?.headers },
       }
     ).then(res => ({ success: true, res } as const)).catch(error => ({ success: false, error }));
 
