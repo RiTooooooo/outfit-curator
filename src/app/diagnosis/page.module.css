@@ -11,24 +11,24 @@
 .center {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-4);
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  gap: var(--spacing-4);
 }
 
 /* ===== Card ===== */
 .card {
   width: 100%;
   max-width: 600px;
-  background: var(--color-bg);
-  border-radius: var(--radius-xl);
   padding: var(--spacing-8) var(--spacing-8);
-  box-shadow: var(--shadow-lg);
+  background: var(--color-bg);
   border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .card {
     padding: var(--spacing-6) var(--spacing-4);
     border-radius: var(--radius-lg);
@@ -44,17 +44,17 @@
 
 .progressLabel {
   font-size: var(--text-sm);
-  color: var(--color-text-secondary);
   font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
 }
 
 .progressBar {
   width: 100%;
   height: 6px;
-  background: var(--color-bg-tertiary);
-  border-radius: var(--radius-full);
   margin-bottom: var(--spacing-8);
   overflow: hidden;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
 }
 
 .progressFill {
@@ -66,20 +66,20 @@
 
 /* ===== Question ===== */
 .questionText {
+  margin-bottom: var(--spacing-8);
   font-size: clamp(1.1rem, 3vw, 1.5rem);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
   line-height: var(--line-height-tight);
-  margin-bottom: var(--spacing-8);
+  color: var(--color-text-primary);
   text-wrap: balance;
 }
 
 /* ===== Choices ===== */
 .choiceList {
-  list-style: none;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
+  list-style: none;
 }
 
 .choiceBtn {
@@ -87,32 +87,32 @@
   padding: var(--spacing-4) var(--spacing-6);
   font-size: var(--text-base);
   font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
   color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
   background: var(--color-bg);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  cursor: pointer;
-  text-align: left;
   transition:
     border-color 0.15s ease,
     background 0.15s ease,
     box-shadow 0.15s ease;
-  line-height: var(--line-height-normal);
+}
+
+.choiceBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .choiceBtn:hover:not(:disabled) {
-  border-color: var(--color-blue);
   background: var(--color-blue-light);
-  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgb(0 113 227 / 12%);
 }
 
 .choiceBtn:active:not(:disabled) {
   transform: scale(0.99);
-}
-
-.choiceBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 /* ===== Loading / Error ===== */
@@ -137,8 +137,8 @@
 }
 
 .errorText {
+  margin-top: var(--spacing-4);
   font-size: var(--text-sm);
   color: #d93025;
-  margin-top: var(--spacing-4);
   text-align: center;
 }
