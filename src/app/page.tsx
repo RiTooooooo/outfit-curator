@@ -35,9 +35,21 @@ const STYLE_TYPES = [
 ] as const;
 
 const STEPS = [
-  { num: "01", title: "5問に答える", desc: "スタイル・カラー・シーンなど5つの質問に選択肢で回答" },
-  { num: "02", title: "AIが分析", desc: "あなたの回答からファッションの傾向を瞬時に診断" },
-  { num: "03", title: "コーデを発見", desc: "あなたのスタイルタイプにマッチするコーディネート一覧を表示" },
+  {
+    num: "01",
+    title: "5問に答える",
+    desc: "スタイル・カラー・シーンなど5つの質問に選択肢で回答",
+  },
+  {
+    num: "02",
+    title: "AIが分析",
+    desc: "あなたの回答からファッションの傾向を瞬時に診断",
+  },
+  {
+    num: "03",
+    title: "コーデを発見",
+    desc: "あなたのスタイルタイプにマッチするコーディネート一覧を表示",
+  },
 ] as const;
 
 export default function Home(): React.ReactNode {
@@ -47,7 +59,8 @@ export default function Home(): React.ReactNode {
       <section className={styles.hero}>
         <p className={styles.eyebrow}>Outfit Curator</p>
         <h1 className={styles.heroTitle}>
-          あなただけの<br />
+          あなただけの
+          <br />
           スタイルを見つけよう
         </h1>
         <p className={styles.heroSub}>
@@ -81,7 +94,9 @@ export default function Home(): React.ReactNode {
       <section className={styles.sectionAlt}>
         <div className={styles.sectionInner}>
           <h2 className={styles.sectionTitle}>5つのスタイルタイプ</h2>
-          <p className={styles.sectionSub}>診断結果はこの中のいずれかのタイプに決まります</p>
+          <p className={styles.sectionSub}>
+            診断結果はこの中のいずれかのタイプに決まります
+          </p>
           <div className={styles.styleGrid}>
             {STYLE_TYPES.map((st) => (
               <div key={st.slug} className={styles.styleCard}>
