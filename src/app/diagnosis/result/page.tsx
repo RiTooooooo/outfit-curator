@@ -16,11 +16,11 @@ type StyleType = {
 type DiagnosisResult = { id: string; styleType: StyleType };
 
 const SLUG_EMOJI: Record<string, string> = {
-  "natural-relax": "🌿",
-  "cool-mode": "🖤",
-  "elegant-formal": "✨",
-  "casual-street": "🏙️",
-  "feminine-sweet": "🌸",
+  mode: "■",
+  casual: "◐",
+  classic: "◆",
+  "real-clothes": "●",
+  normcore: "□",
 };
 
 export default function ResultPage(): React.ReactNode {
@@ -54,7 +54,7 @@ export default function ResultPage(): React.ReactNode {
   if (result === null) return null;
 
   const { styleType } = result;
-  const emoji = SLUG_EMOJI[styleType.slug] ?? "👗";
+  const emoji = SLUG_EMOJI[styleType.slug] ?? "□";
 
   return (
     <div className={styles.page}>
