@@ -6,7 +6,7 @@ test("renders Home page hero title", () => {
   render(<Home />);
 
   const heading = screen.getByRole("heading", { level: 1 });
-  expect(heading).toHaveTextContent("あなただけの");
+  expect(heading).toHaveTextContent("CURATED STYLE.");
 });
 
 test("renders diagnosis CTA link", () => {
