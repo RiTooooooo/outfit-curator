@@ -41,6 +41,7 @@
 
 .logoMark {
   display: grid;
+  place-items: center;
   width: 54px;
   height: 54px;
   font-size: var(--text-base);
@@ -50,7 +51,6 @@
   background: linear-gradient(135deg, #145da0 0%, #7d8a99 100%);
   border-radius: 14px;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 28%);
-  place-items: center;
 }
 
 .navLinks {
