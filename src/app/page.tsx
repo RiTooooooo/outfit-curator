@@ -55,27 +55,53 @@ const STEPS = [
 export default function Home(): React.ReactNode {
   return (
     <div className={styles.page}>
-      {/* Hero */}
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>Outfit Curator</p>
-        <h1 className={styles.heroTitle}>
-          あなただけの
-          <br />
-          スタイルを見つけよう
-        </h1>
-        <p className={styles.heroSub}>
-          たった5問の診断で、あなたのファッションタイプが判明。
-          <br className={styles.brDesktop} />
-          ぴったりのコーディネートをご提案します。
-        </p>
-        <Link href="/diagnosis" className={styles.ctaBtn}>
-          無料で診断する
-        </Link>
-        <p className={styles.ctaNote}>所要時間：約1分</p>
+        <header className={styles.heroNav}>
+          <Link href="/" className={styles.logo}>
+            <span className={styles.logoMark} aria-hidden="true">
+              OC
+            </span>
+            <span>Outfit Curator</span>
+          </Link>
+          <nav className={styles.navLinks} aria-label="メインナビゲーション">
+            <a href="#flow">Flow</a>
+            <a href="#styles">Styles</a>
+            <Link href="/diagnosis">Diagnosis</Link>
+          </nav>
+        </header>
+
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
+            <p className={styles.eyebrow}>Personal style diagnosis</p>
+            <h1 className={styles.heroTitle}>
+              CURATED STYLE.
+              <br />
+              DEFINED BY YOU.
+            </h1>
+            <p className={styles.heroSub}>
+              たった5問で、あなたの好み・日常・似合うムードを整理。
+              青とグレーの静かなトーンで、毎日のコーディネートを提案します。
+            </p>
+            <div className={styles.ctaRow}>
+              <Link href="/diagnosis" className={styles.ctaBtn}>
+                診断を始める
+              </Link>
+              <span className={styles.ctaNote}>所要時間：約1分</span>
+            </div>
+          </div>
+
+          <div className={styles.heroVisual} aria-hidden="true">
+            <div className={styles.visualBack}>
+              <img src="/design-patterns-images/classic-03.png" alt="" />
+            </div>
+            <div className={styles.visualFront}>
+              <img src="/design-patterns-images/mode-01.png" alt="" />
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* How it works */}
-      <section className={styles.section}>
+      <section id="flow" className={styles.section}>
         <div className={styles.sectionInner}>
           <h2 className={styles.sectionTitle}>診断の流れ</h2>
           <div className={styles.steps}>
@@ -90,8 +116,7 @@ export default function Home(): React.ReactNode {
         </div>
       </section>
 
-      {/* Style types */}
-      <section className={styles.sectionAlt}>
+      <section id="styles" className={styles.sectionAlt}>
         <div className={styles.sectionInner}>
           <h2 className={styles.sectionTitle}>5つのスタイルタイプ</h2>
           <p className={styles.sectionSub}>
@@ -109,7 +134,6 @@ export default function Home(): React.ReactNode {
         </div>
       </section>
 
-      {/* Bottom CTA */}
       <section className={styles.bottomCta}>
         <h2 className={styles.bottomCtaTitle}>さっそく診断してみる</h2>
         <Link href="/diagnosis" className={styles.ctaBtn}>

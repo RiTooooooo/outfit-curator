@@ -2,6 +2,9 @@
   "name": "outfit-curator",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "run-p dev:*",
     "dev:next": "next dev",

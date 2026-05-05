@@ -61,7 +61,9 @@ export function OutfitGrid({
           <Image
             src={outfit.imageUrl}
             alt={outfit.title}
-            fill
+            width={720}
+            height={1080}
+            unoptimized
             className={styles.outfitImage}
             sizes="(max-width: 640px) 50vw, 33vw"
           />

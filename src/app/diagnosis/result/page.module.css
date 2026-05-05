@@ -139,16 +139,16 @@
 }
 
 .outfitCard {
-  position: relative;
-  aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--color-bg-tertiary);
+  background: var(--color-white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
 }
 
 .outfitImage {
-  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .skeleton {
