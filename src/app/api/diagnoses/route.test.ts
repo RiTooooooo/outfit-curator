@@ -10,13 +10,6 @@ async function setupTestData() {
       slug: "test-natural-relax",
       description: "自然体のスタイル",
       catchphrase: "素材の温もりをまとう",
-      styleTypeTags: {
-        create: [
-          { tag: "test-natural", weight: 3 },
-          { tag: "test-relax", weight: 3 },
-          { tag: "test-earth", weight: 2 },
-        ],
-      },
     },
   });
 
@@ -26,24 +19,18 @@ async function setupTestData() {
       slug: "test-cool-mode",
       description: "都会的なスタイル",
       catchphrase: "静かな存在感",
-      styleTypeTags: {
-        create: [
-          { tag: "test-cool", weight: 3 },
-          { tag: "test-mono", weight: 3 },
-        ],
-      },
     },
   });
 
-  // Question と Choice を作成
+  // Question と Choice を作成。choice.tags はスタイルタイプの slug を直接指定
   const question = await prismaClient.question.create({
     data: {
       order: 97,
       text: "好みのスタイルは？",
       choices: {
         create: [
-          { text: "ナチュラル系", tags: ["test-natural", "test-relax"] },
-          { text: "クール系", tags: ["test-cool", "test-mono"] },
+          { text: "ナチュラル系", tags: ["test-natural-relax"] },
+          { text: "クール系", tags: ["test-cool-mode"] },
         ],
       },
     },

@@ -1,20 +1,7 @@
 import { expect, test } from "vitest";
 import { calcDiagnosis } from "./diagnosisLogic";
 
-const styleTypes = [
-  {
-    slug: "mode",
-    styleTypeTags: [{ tag: "mode", weight: 1 }],
-  },
-  {
-    slug: "casual",
-    styleTypeTags: [{ tag: "casual", weight: 1 }],
-  },
-  {
-    slug: "classic",
-    styleTypeTags: [{ tag: "classic", weight: 1 }],
-  },
-];
+const styleTypes = [{ slug: "mode" }, { slug: "casual" }, { slug: "classic" }];
 
 test("最も多く票が入ったスタイルタイプを返す", () => {
   const choices = [

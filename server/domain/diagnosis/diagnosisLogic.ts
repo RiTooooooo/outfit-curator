@@ -4,22 +4,20 @@ type ChoiceForDiagnosis = {
   tags: string[];
 };
 
-type StyleTypeTagForDiagnosis = {
-  tag: string;
-  weight: number;
-};
-
 type StyleTypeForDiagnosis = {
   slug: string;
-  styleTypeTags: StyleTypeTagForDiagnosis[];
 };
 
 /**
  * 選択された選択肢のタグからスタイルタイプを診断する。
  *
- * @param choices   ユーザーが選んだ選択肢（各選択肢は tags を持つ）
- * @param styleTypes DBから取得したスタイルタイプ一覧（styleTypeTags 含む）
- * @returns 最も高いスコアのスタイルタイプの slug
+ * choice.tags にはスタイルタイプの slug が入っている前提。
+ * 各 slug の出現回数を数え、最も多く票が入った slug を返す。
+ *
+ * @param choices    ユーザーが選んだ選択肢（各選択肢は tags を持つ）
+ * @param styleTypes 全スタイルタイプ（slug のみ参照）
+ * @returns          最も多く票が入ったスタイルタイプの slug。
+ *                   全員0票の場合は styleTypes 配列の先頭を返す。
  */
 export function calcDiagnosis(
   choices: ChoiceForDiagnosis[],
@@ -30,7 +28,7 @@ export function calcDiagnosis(
   }
 
   // 1. 選択肢のタグ出現回数を集計
-  //    例: { natural: 2, relax: 3, cool: 1 }
+  //    例: { mode: 3, casual: 1, classic: 1 }
   const tagCounts: Record<string, number> = {};
   for (const choice of choices) {
     for (const tag of choice.tags) {
@@ -38,16 +36,13 @@ export function calcDiagnosis(
     }
   }
 
-  // 2. 各スタイルタイプのスコアを計算
-  //    スコア = Σ (タグ出現回数 × weight)
-  const scores = styleTypes.map((st) => {
-    const score = st.styleTypeTags.reduce((sum, { tag, weight }) => {
-      return sum + (tagCounts[tag] ?? 0) * weight;
-    }, 0);
-    return { slug: st.slug, score };
-  });
+  // 2. 各スタイルタイプの票数を取得
+  const scores = styleTypes.map((st) => ({
+    slug: st.slug,
+    score: tagCounts[st.slug] ?? 0,
+  }));
 
-  // 3. 最高スコアの slug を返す（同スコアの場合は先頭を優先）
+  // 3. 最高得票の slug を返す（同点の場合は配列先頭を優先）
   const winner = scores.reduce((best, current) =>
     current.score > best.score ? current : best,
   );

@@ -53,12 +53,11 @@ async function main(): Promise<void> {
   // 既存データをクリア（冪等性：何度実行しても同じ結果になるように）
   await prismaClient.diagnosisResult.deleteMany();
   await prismaClient.outfit.deleteMany();
-  await prismaClient.styleTypeTag.deleteMany();
   await prismaClient.choice.deleteMany();
   await prismaClient.question.deleteMany();
   await prismaClient.styleType.deleteMany();
 
-  // 1. StyleType + StyleTypeTag を投入
+  // 1. StyleType を投入
   console.log("StyleType を作成中...");
   const createdStyleTypes: Record<string, string> = {}; // slug → id
 
@@ -69,9 +68,6 @@ async function main(): Promise<void> {
         slug: st.slug,
         description: st.description,
         catchphrase: st.catchphrase,
-        styleTypeTags: {
-          create: st.tags,
-        },
       },
     });
     createdStyleTypes[st.slug] = created.id;

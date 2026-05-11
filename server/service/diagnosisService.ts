@@ -22,10 +22,14 @@ export async function diagnosisService(
     select: { tags: true },
   });
 
-  // 2. 全スタイルタイプとそのタグ・重みを取得
+  // 2. 全スタイルタイプを取得（slug だけ参照）
   const styleTypes = await prismaClient.styleType.findMany({
-    include: {
-      styleTypeTags: { select: { tag: true, weight: true } },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      description: true,
+      catchphrase: true,
     },
   });
 

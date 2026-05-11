@@ -24,7 +24,9 @@ model Choice {
   questionId String
   text       String
   tags       String[]
-  question   Question @relation(fields: [questionId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
 }
 
 model StyleType {
@@ -34,18 +36,7 @@ model StyleType {
   description      String
   catchphrase      String
   outfits          Outfit[]
-  styleTypeTags    StyleTypeTag[]
   diagnosisResults DiagnosisResult[]
-}
-
-model StyleTypeTag {
-  id          String    @id @default(cuid())
-  styleTypeId String
-  tag         String
-  weight      Int       @default(1)
-  styleType   StyleType @relation(fields: [styleTypeId], references: [id])
-
-  @@unique([styleTypeId, tag])
 }
 
 model Outfit {
@@ -55,7 +46,9 @@ model Outfit {
   description String?
   s3Key       String
   order       Int
-  styleType   StyleType @relation(fields: [styleTypeId], references: [id])
+  styleType   StyleType @relation(fields: [styleTypeId], references: [id], onDelete: Cascade)
+
+  @@index([styleTypeId])
 }
 
 model DiagnosisResult {
@@ -64,5 +57,8 @@ model DiagnosisResult {
   styleTypeId String
   answers     Json
   createdAt   DateTime  @default(now())
-  styleType   StyleType @relation(fields: [styleTypeId], references: [id])
+  styleType   StyleType @relation(fields: [styleTypeId], references: [id], onDelete: Restrict)
+
+  @@index([styleTypeId])
+  @@index([sessionId])
 }
